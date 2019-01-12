@@ -27,12 +27,21 @@ function positionVehicle(vehicle) {
         lng: vehicle.longitude
     };
 
-    createMarker(vehiclePosition);
+    var marker = createMarker(vehiclePosition);
+
+    return marker;
+}
+
+function clusterMarkers(markers) {
+    var markerCluster = new MarkerClusterer(map, markers, {
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    });
 }
 
 async function showVehiclesInMap() {
     var vehicles = await getVehicles();
     var markers = vehicles.items.map(positionVehicle);
+    clusterMarkers(markers);
 }
 
 var baseVehiclesUrl = "http://api.metro.net/agencies/lametro/vehicles/";
