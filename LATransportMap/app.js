@@ -15,7 +15,7 @@ async function getVehicles() {
 }
 
 function createMarker(vehiclePosition) {
-    var marker = new google.maps.Marker({
+    return new google.maps.Marker({
         position: vehiclePosition,
         map: map
     });
@@ -32,7 +32,7 @@ function positionVehicle(vehicle) {
 
 async function showVehiclesInMap() {
     var vehicles = await getVehicles();
-    vehicles.items.forEach(positionVehicle);
+    var markers = vehicles.items.map(positionVehicle);
 }
 
 var baseVehiclesUrl = "http://api.metro.net/agencies/lametro/vehicles/";
