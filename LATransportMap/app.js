@@ -11,7 +11,12 @@ function initMap() {
 }
 
 async function getVehicles() {
-    var vehicles = await requestData(baseVehiclesUrl);
+    try {
+        var vehicles = await requestData(baseVehiclesUrl);
+    } catch(err) {
+        console.log("Error requesting data: ", err);
+    }
+
     return vehicles;
 }
 
@@ -40,7 +45,12 @@ function clusterMarkers(markers) {
 }
 
 async function showVehiclesInMap() {
-    var vehicles = await getVehicles();
+    try {
+        var vehicles = await getVehicles();
+    } catch(err) {
+        console.log("Error getting vehicles: ", err);
+    }
+
     var markers = vehicles.items.map(positionVehicle);
     clusterMarkers(markers);
 }
